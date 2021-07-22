@@ -13,7 +13,7 @@
             "type": "string",
             "description": "Author name",
             "examples": [
-                "Your name"
+                "Your namedd"
             ],
             "nullable": true
         },

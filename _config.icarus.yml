@@ -223,11 +223,11 @@ widgets:
         position: left
         type: profile
         # Author name
-        author: Your name
+        author: Android Deep Dive
         # Author title
-        author_title: Your title
+        author_title: Your titledd
         # Author's current location
-        location: Your location
+        location: Your locationdd
         # URL or path to the avatar image
         avatar: 
         # Whether show the rounded avatar image
