@@ -28,6 +28,8 @@ Compose는 Native UI를 코드레벨로 구현할 수 있는 최신 툴킷이다
 
 아래는 아주 간단한 예제이다.
 
+<!-- more -->
+
 ```kotlin
 @Composable
 fun Greeting(name: String) {
