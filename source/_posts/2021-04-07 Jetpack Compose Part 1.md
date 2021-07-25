@@ -1,6 +1,7 @@
 ---
 title: Jetpack Compose Part 1 - Compose 소개 및 코드랩 따라하기
 date: 2021-04-07 01:00
+cover: /images/cover_jetpack_compose.png
 categories:
 - Jetpack Compose
 tags:
@@ -9,11 +10,15 @@ tags:
 - Compose
 ---
 
-**Authors**
-- 김남훈 @Naver
-- 배희성 @RocketPunch
-- 송시영 @SmartStudy
-- 이기정 @BankSalad
+<article class="message message-immersive is-primary">
+    <div class="message-body">
+        <i class="fas fa-pen-fancy mr-2"></i>Writers<br>
+        by 김남훈 @Naver<br>
+        by 배희성 @RocketPunch<br>
+        by 송시영 @SmartStudy<br>
+        by 이기정 @BankSalad
+    </div>
+</article>
 
 <!-- more -->
 
