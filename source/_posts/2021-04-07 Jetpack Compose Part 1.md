@@ -9,16 +9,17 @@ tags:
 - Compose
 ---
 
-
 **Author in [AndroidDeepDive Study](https://github.com/AndroidDeepDive/Study)**
 - 김남훈 @Naver
 - 배희성 @RocketPunch
 - 송시영 @SmartStudy
 - 이기정 @BankSalad
 
+<!-- more -->
+
 ## Jetpack Compose란 무엇인가?
 
-![](https://drive.google.com/uc?export=view&id=1vXOGJD7inmGfDYiPu6wMVrpu5xFnov38)
+{% asset_img compose_animation.gif [compose_animation] %}
 
 > **출처** [Android Developers#Jetpack Compse](https://developer.android.com/jetpack/compose)
 
@@ -27,8 +28,6 @@ Compose는 Native UI를 코드레벨로 구현할 수 있는 최신 툴킷이다
 기존의 뷰를 업데이트하는 방식과 달리 Compose를 사용하면 필요한 영역의 뷰를 다시 그려주는 방식으로 작업할 수 있다.
 
 아래는 아주 간단한 예제이다.
-
-<!-- more -->
 
 ```kotlin
 @Composable
