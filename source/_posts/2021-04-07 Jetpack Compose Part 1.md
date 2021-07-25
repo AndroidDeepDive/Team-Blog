@@ -1,7 +1,7 @@
 ---
 title: Jetpack Compose Part 1 - Compose 소개 및 코드랩 따라하기
 date: 2021-04-07 01:00
-cover: /images/cover_jetpack_compose.png
+cover: https://androiddeepdive.github.io/Team-Blog/images/cover_jepack_compose.png
 categories:
 - Jetpack Compose
 tags:
