@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="theme-color" content="#71D88D"><title>Image Loading and Caching Library Part 3 — Performance Test - Android Deep Dive</title><link rel="manifest" href="/Team-Blog/manifest.json"><meta name="application-name" content="Android Deep Dive"><meta name="msapplication-TileImage" content="/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Android Deep Dive"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Writers         by 곽욱현 @Knowre         by 김남훈 @Naver         by 배희성 @RocketPunch         by 송시영 @SmartStudy         by 옥수환 @Naver         by 이기정 @BankSalad         by 정세희 @BankSalad"><meta property="og:type" content="blog"><meta property="og:title" content="Image Loading and Caching Library Part 3 — Performance Test"><meta property="og:url" content="https://androiddeepdive.github.io/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/"><meta property="og:site_name" content="Android Deep Dive"><meta property="og:description" content="Writers         by 곽욱현 @Knowre         by 김남훈 @Naver         by 배희성 @RocketPunch         by 송시영 @SmartStudy         by 옥수환 @Naver         by 이기정 @BankSalad         by 정세희 @BankSalad"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/m7itaqy.png"><meta property="og:image" content="https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/BntHJ2Y.png"><meta property="og:image" content="https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/rb1bMMt.png"><meta property="og:image" content="https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/0oDUU69.png"><meta property="og:image" content="https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/TIrybR8.png"><meta property="og:image" content="https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/QafKUB1.png"><meta property="article:published_time" content="2021-06-23T18:00:00.000Z"><meta property="article:modified_time" content="2021-07-25T13:21:23.632Z"><meta property="article:author" content="Android Deep Dive"><meta property="article:tag" content="Android"><meta property="article:tag" content="Image"><meta property="article:tag" content="Library"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/m7itaqy.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://androiddeepdive.github.io/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/"},"headline":"Image Loading and Caching Library Part 3 — Performance Test","image":["https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/m7itaqy.png","https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/BntHJ2Y.png","https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/rb1bMMt.png","https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/0oDUU69.png","https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/TIrybR8.png","https://androiddeepdive.github.io/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/QafKUB1.png"],"datePublished":"2021-06-23T18:00:00.000Z","dateModified":"2021-07-25T13:21:23.632Z","author":{"@type":"Person","name":"Android Deep Dive"},"publisher":{"@type":"Organization","name":"Android Deep Dive","logo":{"@type":"ImageObject","url":"https://androiddeepdive.github.io/img/logo.png"}},"description":"Writers         by 곽욱현 @Knowre         by 김남훈 @Naver         by 배희성 @RocketPunch         by 송시영 @SmartStudy         by 옥수환 @Naver         by 이기정 @BankSalad         by 정세희 @BankSalad"}</script><link rel="canonical" href="https://androiddeepdive.github.io/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/"><link rel="icon" href="/Team-Blog/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/Team-Blog/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/Team-Blog/"><img src="/Team-Blog/img/logo.png" alt="Android Deep Dive" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/Team-Blog/">홈</a><a class="navbar-item" href="/Team-Blog/archives">아카이브</a><a class="navbar-item" href="/Team-Blog/categories">카테고리</a><a class="navbar-item" href="/Team-Blog/tags">태그</a><a class="navbar-item" href="/Team-Blog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Repository of Study" href="https://github.com/AndroidDeepDive"><i class="fab fa-github"></i></a><a class="navbar-item search" title="검색" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-23T18:00:00.000Z" title="2021. 6. 24. 오전 3:00:00">2021-06-24</time>&nbsp;게시 됨</span><span class="level-item"><time dateTime="2021-07-25T13:21:23.632Z" title="2021. 7. 25. 오후 10:21:23">2021-07-25</time>&nbsp;업데이트 됨</span><span class="level-item"><a class="link-muted" href="/Team-Blog/categories/Image-Library/">Image Library</a></span></div></div><h1 class="title is-3 is-size-4-mobile">Image Loading and Caching Library Part 3 — Performance Test</h1><div class="content"><article class="message message-immersive is-primary">
+    <div class="message-body">
+        <i class="fas fa-pen-fancy mr-2"></i>Writers<br>
+        by 곽욱현 @Knowre<br>
+        by 김남훈 @Naver<br>
+        by 배희성 @RocketPunch<br>
+        by 송시영 @SmartStudy<br>
+        by 옥수환 @Naver<br>
+        by 이기정 @BankSalad<br>
+        by 정세희 @BankSalad
+    </div>
+</article>
+
+<span id="more"></span>
+<p>이미지 라이브러리들 중 Glide, Fresco, Coil에 대해서 성능 테스트를 해보자.</p>
+<p>성능 테스트에 사용한 기기는 <code>Pixel 4a</code>, 값의 측정은 <code>Android Studio Profiler</code>를 사용하였다.</p>
+<p>각 세트는 동일한 조건에서 테스트하였으며, 별도의 추가 옵션없이 각 라이브러리의 기본 세팅으로 테스트를 수행하였다.</p>
+<p>측정값은 이미지 로딩 전후로 CPU, Memory, Disk를 10번씩 측정한 후의 평균값이다.</p>
+<p>테스트 애플리케이션의 스토리지가 증가한 뒤, 스토리지를 비우고 다시 측정하였다.</p>
+<blockquote>
+<p><strong>참고</strong> 기본 세팅이니만큼 Picasso의 경우 거대한 이미지를 대부분 불러오지 못했다.</p>
+</blockquote>
+<h3 id="Case-1-하나의-거대한-이미지를-출력하는-경우"><a href="#Case-1-하나의-거대한-이미지를-출력하는-경우" class="headerlink" title="Case 1) 하나의 거대한 이미지를 출력하는 경우"></a>Case 1) 하나의 거대한 이미지를 출력하는 경우</h3><p>테스트에 쓰인 이미지는 <code>7,680 x 4,320</code>의 사이즈와 <code>4.29mb</code>의 용량을 가진 24-bit의 color depth를 가진 이미지이다.</p>
+<img src="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/m7itaqy.png" class="" title="[one big image profiling]">
+
+<table>
+<thead>
+<tr>
+<th align="center">Library</th>
+<th align="center">CPU</th>
+<th align="center">Memory</th>
+<th align="center">Disk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Coil</td>
+<td align="center">38.3%</td>
+<td align="center">4.26MB</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="center">Glide</td>
+<td align="center">40.8%</td>
+<td align="center">3.41MB</td>
+<td align="center">0.21MB</td>
+</tr>
+<tr>
+<td align="center">Fresco</td>
+<td align="center">40.2%</td>
+<td align="center">8.14MB</td>
+<td align="center">X</td>
+</tr>
+</tbody></table>
+<p>1개의 거대한 이미지의 경우 특기할만한 성능 차이는 존재하지 않았다.</p>
+<h3 id="Case-2-동일한-이미지를-여러-번-출력하는-경우"><a href="#Case-2-동일한-이미지를-여러-번-출력하는-경우" class="headerlink" title="Case 2) 동일한 이미지를 여러 번 출력하는 경우"></a>Case 2) 동일한 이미지를 여러 번 출력하는 경우</h3><p>Case 1의 이미지를 ScrollView에 50개 추가하여 테스트하였다.</p>
+<img src="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/BntHJ2Y.png" class="" title="[50 big image profiling]">
+
+<table>
+<thead>
+<tr>
+<th align="center">Library</th>
+<th align="center">CPU</th>
+<th align="center">Memory</th>
+<th align="center">Disk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Coil</td>
+<td align="center">93.6%</td>
+<td align="center">350.8MB</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="center">Glide</td>
+<td align="center">45.4%</td>
+<td align="center">4.6MB</td>
+<td align="center">0.21MB</td>
+</tr>
+<tr>
+<td align="center">Fresco</td>
+<td align="center">72.4%</td>
+<td align="center">8.4MB</td>
+<td align="center">X</td>
+</tr>
+</tbody></table>
+<p>Coil의 Cpu, Memory 사용량이 매우 크게 증가하였다.</p>
+<p>Glide는 앱을 끈 후 다시 로딩했을 때 딜레이가 없었어 재로딩 했을 때 매우 효율적으로 동작하였다.</p>
+<p>아래 세부 프로파일링을 보면 Coil이 Coroutine을 사용할 때 CPU, Memory가 정말 많이 사용된다는 것을 알 수 있다.</p>
+<p>아래는 Coil로 테스트하였을 때의 프로파일링 결과이다.</p>
+<img src="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/rb1bMMt.png" class="" title="[50 big image profiling coil]">
+
+<p>아래는 Glide로 테스트하였을 때의 프로파일링 결과이다.</p>
+<img src="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/0oDUU69.png" class="" title="[50 big image profiling glide]">
+
+<p>Glide가 하나의 이미지를 여러개 불러올 때 제일 효율이 좋은 것으로 나타났다.</p>
+<h3 id="Case-3-여러-이미지를-각각-출력해보는-경우-feat-ScrollView"><a href="#Case-3-여러-이미지를-각각-출력해보는-경우-feat-ScrollView" class="headerlink" title="Case 3) 여러 이미지를 각각 출력해보는 경우 (feat_ ScrollView)"></a>Case 3) 여러 이미지를 각각 출력해보는 경우 (feat_ ScrollView)</h3><p>2mb ~ 10mb 사이의 각기 다른 용량을 가진 이미지 10개를 ScrollView에 추가하여 테스트하였다.</p>
+<img src="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/TIrybR8.png" class="" title="[10 different image profiling]">
+
+<table>
+<thead>
+<tr>
+<th align="center">Library</th>
+<th align="center">CPU</th>
+<th align="center">Memory</th>
+<th align="center">Disk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Coil</td>
+<td align="center">88.6%</td>
+<td align="center">800MB</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="center">Glide</td>
+<td align="center">89%</td>
+<td align="center">303.3MB</td>
+<td align="center">4.6MB</td>
+</tr>
+<tr>
+<td align="center">Fresco</td>
+<td align="center">92.6%</td>
+<td align="center">276MB</td>
+<td align="center">X</td>
+</tr>
+</tbody></table>
+<p>캐싱을 기대할 수 없는 만큼 대체적으로 모두 CPU, Memory사용량이 올라갔다.</p>
+<p>그 중 Coil이 제일 많은 Memory를 사용하였다.</p>
+<h3 id="Case-4-여러-이미지를-각각-출력해보는-경우-feat-RecyclerView"><a href="#Case-4-여러-이미지를-각각-출력해보는-경우-feat-RecyclerView" class="headerlink" title="Case 4) 여러 이미지를 각각 출력해보는 경우 (feat_ RecyclerView)"></a>Case 4) 여러 이미지를 각각 출력해보는 경우 (feat_ RecyclerView)</h3><p>Case 3에서 사용한 이미지를 RecyclerView에 추가하여 테스트하였다.</p>
+<img src="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/QafKUB1.png" class="" title="[10 different image recyclerView profiling]">
+
+<table>
+<thead>
+<tr>
+<th align="center">Library</th>
+<th align="center">CPU</th>
+<th align="center">Memory</th>
+<th align="center">Disk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Coil</td>
+<td align="center">94%</td>
+<td align="center">800MB</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="center">Glide</td>
+<td align="center">94%</td>
+<td align="center">270MB</td>
+<td align="center">4.52MB</td>
+</tr>
+<tr>
+<td align="center">Fresco</td>
+<td align="center">94.6%</td>
+<td align="center">281MB</td>
+<td align="center">X</td>
+</tr>
+</tbody></table>
+<p>Coil의 경우 ScrollView에 로딩할 때보다 CPU 사용량이 증가한 것을 확인할 수 있었다.</p>
+<h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><p>Coil이 Coroutine으로 만들어져 기대를 많이 하고 테스트를 해보았는데 생각보다 CPU, Memory의 사용량이 많았다.</p>
+<p>Gilde는 정말로 모든 부분에서 최적화가 잘 되어있는 것으로 보이는 것에 비해, Picasso는 잘 사용하고 싶다면 정말 커스텀을 많이, 잘 해야될 필요가 있어보인다.</p>
+<p>Fresco는 최적화가 정말 잘 되어있지만 러닝커브가 높다. 퍼포먼스 측면에서는 Glide와 제일 비슷하였다.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><h3 id="Members-of-Study"><a href="#Members-of-Study" class="headerlink" title="Members of Study"></a>Members of Study</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://namhoon.kim/2021/05/25/android_deep_dive/017_Image%20Loading%20and%20Caching%20Library%20Part%201/">https://namhoon.kim/2021/05/25/android_deep_dive/017_Image%20Loading%20and%20Caching%20Library%20Part%201/</a></li>
+<li><a target="_blank" rel="noopener" href="https://namhoon.kim/2021/06/01/android_deep_dive/018_Image%20Loading%20and%20Caching%20Library%20Part%202/">https://namhoon.kim/2021/06/01/android_deep_dive/018_Image%20Loading%20and%20Caching%20Library%20Part%202/</a></li>
+<li><a target="_blank" rel="noopener" href="https://velog.io/@jshme/Android-Image-Loader-Library">https://velog.io/@jshme/Android-Image-Loader-Library</a></li>
+<li><a target="_blank" rel="noopener" href="https://velog.io/@jshme/Android-Hello-Out-Of-Memory">https://velog.io/@jshme/Android-Hello-Out-Of-Memory</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.charlezz.com/wordpress/wp-content/uploads/2020/10/www.charlezz.com-glide-v4-glide-v4--by-charlezz.pdf">https://www.charlezz.com/wordpress/wp-content/uploads/2020/10/www.charlezz.com-glide-v4-glide-v4--by-charlezz.pdf</a></li>
+</ul>
+<h3 id="Official"><a href="#Official" class="headerlink" title="Official"></a>Official</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/resources/drawable-resource.html">Android Developers#Drawble Resources</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.android.com/topic/performance/graphics/index.html">Android Developers#Handling bitmaps</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/util/LruCache">Android Developers#LruCache</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/collection/LruCache">androidx.collection.LruCache</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)">Cache replacement policies#recently used</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/google/accompanist">Google#Accompanist Repository</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://square.github.io/picasso/">https://square.github.io/picasso/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://bumptech.github.io/glide/">https://bumptech.github.io/glide/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/coil-kt/coil">https://github.com/coil-kt/coil</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://frescolib.org/">https://frescolib.org</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/nostra13/Android-Universal-Image-Loader/wiki">https://github.com/nostra13/Android-Universal-Image-Loader/wiki</a></p>
+</li>
+</ul>
+<h3 id="ETC"><a href="#ETC" class="headerlink" title="ETC"></a>ETC</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://futurestud.io/tutorials/glide-caching-basics">https://futurestud.io/tutorials/glide-caching-basics</a></li>
+<li><a target="_blank" rel="noopener" href="https://wooooooak.github.io/%EB%B2%88%EC%97%AD%ED%95%98%EB%A9%B0%20%EA%B3%B5%EB%B6%80%ED%95%98%EA%B8%B0/2021/02/21/How-The-Android-Image-Loading-Library-Glide-and-Fresco-Works/">https://wooooooak.github.io/%EB%B2%88%EC%97%AD%ED%95%98%EB%A9%B0%20%EA%B3%B5%EB%B6%80%ED%95%98%EA%B8%B0/2021/02/21/How-The-Android-Image-Loading-Library-Glide-and-Fresco-Works/</a></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Image Loading and Caching Library Part 3 — Performance Test</p><p><a href="https://androiddeepdive.github.io/2021/06/24/2021-06-24 Image Loading and Caching Library Part 3/">https://androiddeepdive.github.io/2021/06/24/2021-06-24 Image Loading and Caching Library Part 3/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Android Deep Dive</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2021-06-24</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2021-07-25</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/Team-Blog/tags/Android/">Android</a><a class="link-muted mr-2" rel="tag" href="/Team-Blog/tags/Image/">Image</a><a class="link-muted mr-2" rel="tag" href="/Team-Blog/tags/Library/">Library</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%202/"><span class="level-item">Image Loading and Caching Library Part 2 — Principle / Memory &amp; Footprint / Compose</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/Team-Blog/img/avatar.png" alt="ADD"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">ADD</p><p class="is-size-6 is-block">Android Deep Dive</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">포스트</p><a href="/Team-Blog/archives"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">카테고리</p><a href="/Team-Blog/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">태그</p><a href="/Team-Blog/tags"><p class="title">9</p></a></div></div></nav></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">링크</h3><ul class="menu-list"><li><a class="level is-mobile" href="http://github.com/AndroidDeepDive/Study" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Study</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://github.com/AndroidDeepDive/Contact-Us" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Contact-Us</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">카테고리</h3><ul class="menu-list"><li><a class="level is-mobile" href="/Team-Blog/categories/Image-Library/"><span class="level-start"><span class="level-item">Image Library</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/Team-Blog/categories/Jetpack-Compose/"><span class="level-start"><span class="level-item">Jetpack Compose</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/Team-Blog/categories/User-Interface/"><span class="level-start"><span class="level-item">User Interface</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">최근 글</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-23T18:00:00.000Z">2021-06-24</time></p><p class="title"><a href="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%203/">Image Loading and Caching Library Part 3 — Performance Test</a></p><p class="categories"><a href="/Team-Blog/categories/Image-Library/">Image Library</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-23T17:00:00.000Z">2021-06-24</time></p><p class="title"><a href="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%202/">Image Loading and Caching Library Part 2 — Principle / Memory &amp; Footprint / Compose</a></p><p class="categories"><a href="/Team-Blog/categories/Image-Library/">Image Library</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-23T16:00:00.000Z">2021-06-24</time></p><p class="title"><a href="/Team-Blog/2021/06/24/2021-06-24%20Image%20Loading%20and%20Caching%20Library%20Part%201/">Image Loading and Caching Library Part 1 — Why use?</a></p><p class="categories"><a href="/Team-Blog/categories/Image-Library/">Image Library</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-18T18:00:00.000Z">2021-05-19</time></p><p class="title"><a href="/Team-Blog/2021/05/19/2021-05-19%20Android%20UI%20Rendering%20Optimization%20Part%203/">Introduce Android UI Rendering Principle and View Optimization Part 3</a></p><p class="categories"><a href="/Team-Blog/categories/User-Interface/">User Interface</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-18T17:00:00.000Z">2021-05-19</time></p><p class="title"><a href="/Team-Blog/2021/05/19/2021-05-19%20Android%20UI%20Rendering%20Optimization%20Part%202/">Introduce Android UI Rendering Principle and View Optimization Part 2</a></p><p class="categories"><a href="/Team-Blog/categories/User-Interface/">User Interface</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">아카이브</h3><ul class="menu-list"><li><a class="level is-mobile" href="/Team-Blog/archives/2021/06/"><span class="level-start"><span class="level-item">6월 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/Team-Blog/archives/2021/05/"><span class="level-start"><span class="level-item">5월 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/Team-Blog/archives/2021/04/"><span class="level-start"><span class="level-item">4월 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">태그</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Android/"><span class="tag">Android</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Compose/"><span class="tag">Compose</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Image/"><span class="tag">Image</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Jetpack/"><span class="tag">Jetpack</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Library/"><span class="tag">Library</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Optimize/"><span class="tag">Optimize</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Principle/"><span class="tag">Principle</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/Rendering/"><span class="tag">Rendering</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/Team-Blog/tags/UI/"><span class="tag">UI</span><span class="tag">3</span></a></div></div></div></div></div><!--!--></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/Team-Blog/"><img src="/Team-Blog/img/logo.png" alt="Android Deep Dive" height="28"></a><p class="is-size-7"><span>&copy; 2021 Android Deep Dive</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ko");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/Team-Blog/js/column.js"></script><a id="back-to-top" title="맨 위로" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/Team-Blog/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/Team-Blog/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="입력 하세요..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/Team-Blog/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/Team-Blog/content.json"}, {"hint":"입력 하세요...","untitled":"(제목 없음)","posts":"포스트","pages":"페이지","categories":"카테고리","tags":"태그"});
+        });</script></body></html>
