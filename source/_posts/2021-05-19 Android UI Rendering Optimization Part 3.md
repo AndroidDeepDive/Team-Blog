@@ -1,7 +1,7 @@
 ---
 title: Introduce Android UI Rendering Principle and View Optimization Part 3
 date: 2021-05-19 03:00
-# cover: https://androiddeepdive.github.io/Team-Blog/images/cover_jepack_compose.png
+cover: https://androiddeepdive.github.io/Team-Blog/images/cover_ui_rendering.png
 categories:
 - User Interface
 tags:

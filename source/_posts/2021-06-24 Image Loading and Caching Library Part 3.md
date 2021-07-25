@@ -1,7 +1,7 @@
 ---
 title: Image Loading and Caching Library Part 3 — Performance Test
 date: 2021-06-24 03:00
-# cover: https://androiddeepdive.github.io/Team-Blog/images/cover_jepack_compose.png
+cover: https://androiddeepdive.github.io/Team-Blog/images/cover_image_library.png
 categories:
 - Image Library
 tags:
