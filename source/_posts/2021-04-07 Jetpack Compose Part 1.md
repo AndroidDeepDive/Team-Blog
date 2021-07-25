@@ -9,7 +9,7 @@ tags:
 - Compose
 ---
 
-**Author in [AndroidDeepDive Study](https://github.com/AndroidDeepDive/Study)**
+**Authors**
 - 김남훈 @Naver
 - 배희성 @RocketPunch
 - 송시영 @SmartStudy
@@ -40,16 +40,7 @@ fun Greeting(name: String) {
 
 아래는 공식 서비스 소개 영상이다.
 
-<div style="width: 560px; height: 315px; float: none; clear: both;">
-  <embed
-    src="https://www.youtube.com/embed/U5BwfqBpiWU"
-    wmode="transparent"
-    type="video/mp4"
-    width="100%" height="100%"
-    allow="autoplay; encrypted-media; picture-in-picture"
-    allowfullscreen
-  >
-</div>
+{% youtube U5BwfqBpiWU %}
 
 ### Compose의 4가지 특징
 
@@ -111,7 +102,7 @@ dependencies {
 
 [File] - [New] - [New Project…] 를 눌러 새로운 프로젝트를 선택하고(Preview) Empty Compose Activity 를 선택한다.
 
-![](https://cdn-images-1.medium.com/max/3592/1*5gfrQWfxyEC7Oq6b2xlJ9w.png)
+{% asset_img 1_5gfrQWfxyEC7Oq6b2xlJ9w.png [1_5gfrQWfxyEC7Oq6b2xlJ9w] %}
 
 선택 이후 Next를 클릭하고, Compose를 구현할 수 있는 최소 API 레벨인 21을 선택해야한다.
 
@@ -254,7 +245,7 @@ setContent {
 }
 ```
 
-![output](https://imgur.com/aO6Jlsg.jpg)
+{% asset_img aO6Jlsg.png [aO6Jlsg] %}
 
 ### 5. `@Preview`
 
@@ -272,7 +263,7 @@ fun GreetingPreview() {
 }
 ```
 
-![Greeting Preview](https://imgur.com/WprDTs1.jpg)
+{% asset_img WprDTs1.png [WprDTs1] %}
 
 ### 6. setContent / Theme / Surface
 
@@ -405,7 +396,7 @@ fun Greeting(name: String) {
 }
 ```
 
-![결과](https://imgur.com/qgQ6oY4.jpg)
+{% asset_img qgQ6oY4.png [qgQ6oY4] %}
 
 선언형 UI의 장점은 말 그대로 내가 UI를 정의한대로 시각적으로 표현이 가능하다는 장점이 있다. 기존에는 속성을 매번 On/Off와 같은 옵션을 통해 변경하는 것이 다반사였지만, 이제는 매번 속성에 변경이 생길때마다 새로 그려주게 되는것이다.
 
@@ -463,7 +454,7 @@ fun MyScreenContent() {
 
  `Column`과 위에서부터 사용하던 `Greeting` 함수를 사용하고, 라인을 그어주기 위한 `Divider`를 추가한 결과물은 다음과 같다.
 
-![multiple component](https://imgur.com/VLTxB8C.jpg)
+{% asset_img VLTxB8C.png [VLTxB8C] %}
 
 위 컴포넌트 중 못보던 컴포저블이 있는데, 아래와 같이 설명이 가능하다.
 
@@ -546,7 +537,7 @@ fun Counter(count: Int, updateCount: (Int) -> Unit) {
 
 따라서 결과를 보면, 다음과 같다. Count가 5가 넘어가면 초록색으로 바뀐다.
 
-![count](https://imgur.com/Ju6BSg2.gif)
+{% asset_img Ju6BSg2.gif [Ju6BSg2] %}
 
 그 외에도 여러형태의 모양을 구성할수 있도록 옵션이 제공되어 있다. 자세한 정보는 나중에 [Codelabs](https://developer.android.com/codelabs/jetpack-compose-basics)에 더 나와 있으니 보도록하고, 이번에 setContent에 대한 동작원리를 함께 고민해보자.
 
