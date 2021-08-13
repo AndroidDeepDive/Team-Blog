@@ -246,6 +246,10 @@ public @interface ColumnInfo {
 
  **Room** 뿐만 아니라 범용적으로 사용되는 **Dagger**, **Glide**와 같은 라이브러리들도 Annotation(Processor)을 기반으로 동작한다. 
 
+<br>
+<br>
+<br>
+
 ## KAPT (Kotlin Annotation Processing Tool)
 
 코틀린 프로젝트를 컴파일 할 때는 javac가 아닌 kotlinc로 컴파일을 하기 때문에 Java로 작성한 애노테이션 프로세서(AbstractProcessor)가 동작하지 않는다. 
